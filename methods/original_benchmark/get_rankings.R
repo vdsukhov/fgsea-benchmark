@@ -22,15 +22,9 @@ gobp_gs <- gobp_gs[gobp_to_keep]
 # ----------------------------------------------------------------------------------------------------------------------------------
 # Loading `SummarizedExperiment` files for microarray and rnaseq data
 # ----------------------------------------------------------------------------------------------------------------------------------
-
-path_to_geo2kegg <- "inpdata/GSEABenchmarking/GEO2KEGG_preproc/"
 path_to_tcga <- "inpdata/GSEABenchmarking/TCGA_preproc/GSE62944_matched_limmavoom/"
 
-microarray_data <- lapply(list.files(path_to_geo2kegg, pattern = ".rds"), function(fnm){
-    se <- readRDS(paste0(path_to_geo2kegg, fnm))
-    return(se)
-})
-names(microarray_data) <- gsub(".rds", "", list.files(path_to_geo2kegg, pattern = ".rds"))
+microarray_data <- loadEData("geo2kegg", preproc=TRUE)
 
 rnaseq_data <- lapply(list.files(path_to_tcga, pattern = ".rds"), function(fnm){
     se <- readRDS(paste0(path_to_tcga, fnm))
